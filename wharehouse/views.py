@@ -15,24 +15,55 @@ class OrderStatsView(APIView):
         serializer.is_valid(raise_exception=True)
 
         results = {}
+        """
+        results = {
+            "Product name" : [
+                {
+                    "party": 1,
+                    "material": "material name 1",
+                    "qty": 20.0
+                },
+                {
+                    "party": 2,
+                    "material": "material name 2",
+                    "qty": 5.0
+                },
+                {
+                    "party": None,
+                    "material": "material name 2",
+                    "qty": 30.0
+                },
+            ]
+        """
+
         party_material_given_data = {}
+        """
+            {
+                |party_id|: {
+                    |material_id|: |material_given_value|
+                }, 
+                2: {
+                    4: 90.0
+                }, 
+                3: {
+                    4: 20.0
+                }
+            }
+        """
+
         for block in serializer.validated_data:
             product: Product = block['product']
             quantity = block['quantity']
 
             results[product.name] = []
 
-            material_infos = product.product_material.values('material_id', 'material__name', 'value')
+            product_materials = product.product_material.values('material_id', 'material__name', 'value')
 
-            for material_info in material_infos:
-                material_id = material_info['material_id']
-                material_name = material_info['material__name']
-                value = material_info['value']
+            for product_material in product_materials:
+                material_id = product_material['material_id']
+                material_name = product_material['material__name']
+                value = product_material['value']
                 total_value = value * quantity
-                print('---')
-                print(material_name)
-                print(material_info['material_id'])
-                print('---')
 
                 given_value = 0
                 given_value_data = []
@@ -59,9 +90,6 @@ class OrderStatsView(APIView):
                     if party_values == 0:
                         break
 
-                    print(party)
-                    print(total_value)
-                    print(party_values)
                     if given_value + party_values >= total_value:
                         given_value_data.append(
                             {'party': party['id'], 'qty': total_value - given_value}
@@ -100,6 +128,5 @@ class OrderStatsView(APIView):
                             "qty": each['qty'],
                         }
                     )
-        print(party_material_given_data)
 
         return Response(data=results)
