@@ -39,6 +39,7 @@ class Material(models.Model):
         (COUNT, _("Soni"))
     )
     measure_type = models.IntegerField(choices=MEASURE_TYPES)
+    price = models.PositiveIntegerField()
     name = models.CharField(max_length=200)
 
     def __str__(self):

@@ -18,7 +18,7 @@ class ProductMaterial(admin.ModelAdmin):
 
 @admin.register(Material)
 class MaterialAdmin(admin.ModelAdmin):
-    list_display = ('name', 'measure_type')
+    list_display = ('name', 'price', 'measure_type')
     filter = ('measure_type',)
     search_fields = ('name',)
 
