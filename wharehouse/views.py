@@ -2,15 +2,16 @@ from rest_framework.views import APIView
 
 from .serializers import OrderSerializer
 from rest_framework.response import Response
-from django.db.models import Count, Sum, FloatField, Q, OuterRef, Subquery
+from django.db.models import Sum, FloatField, Q
 from django.db.models.functions import Coalesce
 from .models import *
 
 
 class OrderStatsView(APIView):
+    serializer_class = OrderSerializer
 
     def get(self, request, *args, **kwargs):
-        serializer = OrderSerializer(data=request.data, many=True)
+        serializer = self.serializer_class(data=request.data, many=True)
         serializer.is_valid(raise_exception=True)
 
         results = {}
