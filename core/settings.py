@@ -22,7 +22,8 @@ INSTALLED_APPS = [
     'rest_framework',
 
     # local apps
-    'wharehouse'
+    'wharehouse',
+    'querycount',
 ]
 
 MIDDLEWARE = [
@@ -33,6 +34,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'querycount.middleware.QueryCountMiddleware',
 ]
 
 ROOT_URLCONF = 'core.urls'
