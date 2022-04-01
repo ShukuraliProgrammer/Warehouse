@@ -10,7 +10,7 @@ class ProductAdmin(admin.ModelAdmin):
 
 @admin.register(ProductMaterial)
 class ProductMaterial(admin.ModelAdmin):
-    list_display = ('product', 'material', 'value')
+    list_display = ('product', 'material','value')
     filter = ('product', 'material')
     search_fields = ("product__name", "product__code")
     autocomplete_fields = ('product', 'material')
@@ -44,3 +44,4 @@ class PartyAdmin(admin.ModelAdmin):
 class WareHouseAdmin(admin.ModelAdmin):
     list_display = ('name',)
     search_fields = ('name',)
+

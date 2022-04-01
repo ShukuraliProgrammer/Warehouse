@@ -23,7 +23,7 @@ class ProductMaterial(models.Model):
         return f"{self.product} - {self.material}"
 
     class Meta:
-        ordering = ('product__name', 'material__name',)
+        ordering = ('product__name','material__name',)
         unique_together = ('product', 'material')
 
 
