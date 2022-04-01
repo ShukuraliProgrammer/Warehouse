@@ -9,7 +9,7 @@ from .models import *
 
 class OrderStatsView(APIView):
 
-    def post(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         serializer = OrderSerializer(data=request.data, many=True)
         serializer.is_valid(raise_exception=True)
 
