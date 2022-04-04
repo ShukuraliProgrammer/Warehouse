@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 def validate_positive(val):
-    if val >0:
+    if val > 0:
         return val
     else:
         raise serializers.ValidationError(_("Positive number is required"))
